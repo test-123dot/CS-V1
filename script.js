@@ -1,5 +1,5 @@
 let webstore = new Vue({
-    el: '#booking',
+    el: '#lessonstore',
     data: {
         titlename: 'Booking Lessons',
         lesson1: {
