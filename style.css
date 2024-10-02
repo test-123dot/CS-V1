@@ -1,0 +1,15 @@
+img {
+    width: 180px;
+    float: left;
+}
+
+li {
+    width: 320px;
+    list-style-type: none;
+    outline-style: solid;
+    outline-color: black;
+}
+
+button {
+    margin: 5px;
+}
