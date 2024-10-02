@@ -13,6 +13,7 @@
     <div id="booking">
         <header>
             <h1 v-text="titlename"></h1>
+            <button>Basket</button>
         </header>
         <main>
             <ul>
@@ -21,20 +22,20 @@
                         <img v-bind:src="lesson1.image">
                     </figure>
                     <h2 v-text:src="lesson1.title"></h2>
-                    <p v-text:src="lesson1.description"></p>
+                    <p v-text:src="lesson1.location"></p>
                     <p>Price: {{lesson1.price}}</p>
                     <p>Availability: {{lesson1.availability}}</p>
-                    <button>Add To Cart</button>
+                    <button @click="addItem">Add To Cart</button>
                 </li>
                 <li>
                     <figure>
                         <img v-bind:src="lesson2.image">
                     </figure>
                     <h2 v-text:src="lesson2.title"></h2>
-                    <p v-text:src="lesson2.description"></p>
+                    <p v-text:src="lesson2.location"></p>
                     <p>Price: {{lesson2.price}}</p>
                     <p>Availability: {{lesson2.availability}}</p>
-                    <button>Add To Cart</button>
+                    <button @click="addItem">Add To Cart</button>
                 </li>
             </ul>
         </main>

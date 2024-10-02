@@ -1,15 +1,12 @@
 img {
-    width: 180px;
-    float: left;
+    max-width: 200px;
+    max-height: 200px;
+}
+
+ul {
+    padding: 0;
 }
 
 li {
-    width: 320px;
     list-style-type: none;
-    outline-style: solid;
-    outline-color: black;
-}
-
-button {
-    margin: 5px;
 }

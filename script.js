@@ -5,16 +5,17 @@ let webstore = new Vue({
         lesson1: {
             image: 'Images/music.png',
             title: 'Music Lesson',
-            description: 'blah blah',
+            location: 'South West London',
             price: 25,
             availability: 5
         },
         lesson2: {
             image: 'Images/maths.png',
             title: 'Maths Lesson',
-            description: 'blah blah',
+            location: 'North London',
             price: 20,
             availability: 5
-        }
+        },
+
     }
 });
