@@ -25,7 +25,8 @@
                     <p v-text:src="lesson1.location"></p>
                     <p>Price: {{lesson1.price}}</p>
                     <p>Availability: {{lesson1.availability}}</p>
-                    <button @click="addItem">Add To Cart</button>
+                    <button type=button v-if="canAddItem" @click="addItem">Add To Cart</button>
+                    <button type=button disabled v-else>Add To Cart</button>
                 </li>
                 <li>
                     <figure>
@@ -35,7 +36,7 @@
                     <p v-text:src="lesson2.location"></p>
                     <p>Price: {{lesson2.price}}</p>
                     <p>Availability: {{lesson2.availability}}</p>
-                    <button @click="addItem">Add To Cart</button>
+                    <button type=button @click="addItem">Add To Cart</button>
                 </li>
             </ul>
         </main>
