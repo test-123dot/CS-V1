@@ -1,37 +1,37 @@
 let webstore = new Vue({
     el: '#lessonstore',
     data: {
+        showLesson: true,
         titlename: 'Booking Lessons',
-        lesson1: {
-            id: 1001,
-            image: 'Images/music.png',
-            title: 'Music Lesson',
-            location: 'South West London',
-            price: 25,
-            availability: 5,
-            outofstock: 'There are no more items in stock'
-        },
-        lesson2: {
-            id: 1002,
-            image: 'Images/maths.png',
-            title: 'Maths Lesson',
-            location: 'North London',
-            price: 20,
-            availability: 5
-        },
+        lessons: lessons,
         cart: [],
     },
     methods: {
-        addItem: function () {
-            this.cart.push(this.lesson1.id);
+        addToCart(lesson) {
+            this.cart.push(lesson.id);
+        },
+        showCheckout(lesson) {
+            this.showLesson = this.showLesson ? false : true;
+        },
+        canAddToCart(lesson) {
+            return lesson.availability > this.cartCount(lesson.id);
+        },
+        cartCount(id) {
+            let count = 0;
+            for (let i = 0; i < this.cart.length; i++) {
+                if (this.cart[i] === id) {
+                    count++;
+                }
+            }
+            return count;
         }
     },
     computed: {
-        cartCounter: function () {
+        cartItemCount: function () {
             return this.cart.length || "";
         },
-        canAddItem: function () {
-            return this.lesson1.availability > this.cartCounter;
+        itemsLeft() {
+            return this.lesson.availability - this.cartCounter;
         }
     }
 });

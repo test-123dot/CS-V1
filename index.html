@@ -5,42 +5,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lesson Booking</title>
-    <script src="https://unpkg.com/vue@2.7.8/dist/vue.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css" />
+    <script src="https://unpkg.com/vue@2.7.8/dist/vue.js"></script>
 </head>
 
 <body>
     <div id="lessonstore">
         <header>
             <h1 v-text="titlename"></h1>
-            <button>Basket</button>
+            <button @click="showCheckout">
+                {{cartItemCount}}
+                Checkout
+            </button>
         </header>
         <main>
-            <ul>
-                <li>
-                    <figure>
-                        <img v-bind:src="lesson1.image">
-                    </figure>
-                    <h2 v-text:src="lesson1.title"></h2>
-                    <p v-text:src="lesson1.location"></p>
-                    <p>Price: {{lesson1.price}}</p>
-                    <p>Availability: {{lesson1.availability}}</p>
-                    <button type=button v-if="canAddItem" @click="addItem">Add To Cart</button>
-                    <button type=button disabled v-else>Add To Cart</button>
-                </li>
-                <li>
-                    <figure>
-                        <img v-bind:src="lesson2.image">
-                    </figure>
-                    <h2 v-text:src="lesson2.title"></h2>
-                    <p v-text:src="lesson2.location"></p>
-                    <p>Price: {{lesson2.price}}</p>
-                    <p>Availability: {{lesson2.availability}}</p>
-                    <button type=button @click="addItem">Add To Cart</button>
-                </li>
-            </ul>
+            <div v-if="showLesson">
+                <div v-for="lesson in lessons">
+                    <ul>
+                        <li>
+                            <figure>
+                                <img v-bind:src="lesson.image">
+                            </figure>
+                            <h2 v-text:src="lesson.title"></h2>
+                            <p v-text:src="lesson.location"></p>
+                            <p>Price: {{lesson.price}}</p>
+                            <p>Availability: {{lesson.availability}}</p>
+
+                            <button v-on:click='addToCart(lesson)' v-if='canAddToCart(lesson)'> Add to cart</button>
+                            <button type=button disabled v-else>Add To Cart</button>
+
+                            <span v-if='lesson.availability === cartCount(lesson.id)'>
+                                Out of Stock!</span>
+                            <span v-else-if="lesson.availability - cartCount(lesson.id) < 5">
+                                {{lesson.availability - cartCount(lesson.id)}} left!
+                            </span>
+                            <span v-else>Buy now!</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div v-else></div>
         </main>
     </div>
+    <script type="text/javascript" src="lessons.js"></script>
     <script type="text/javascript" src="script.js"></script>
 </body>
 
