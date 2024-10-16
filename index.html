@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lesson Booking</title>
     <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="https://unpkg.com/vue@2.7.8/dist/vue.js"></script>
 </head>
 
@@ -13,14 +14,30 @@
     <div id="lessonstore">
         <header>
             <h1 v-text="titlename"></h1>
-            <button @click="showCheckout">
-                {{cartItemCount}}
+            <button type=button disabled v-if='cartItemCount === "" '> <i class="fas fa-shopping-cart"></i>
                 Checkout
             </button>
+            <button v-on:click="showCheckout" v-else> {{cartItemCount}}
+                <i class="fas fa-shopping-cart"></i>
+                Checkout
+            </button>
+            <div class="dropdown">
+                <button> Sort By
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <button>Price - Ascending</button>
+                    <button>Price - Descending</button>
+                    <button>Subject Title: A-Z</button>
+                    <button>Subject Title: Z-A</button>
+                    <button>Lowest Availability</button>
+                    <button>Highest Availability</button>
+                </div>
+            </div>
         </header>
         <main>
             <div v-if="showLesson">
-                <div v-for="lesson in lessons">
+                <div v-for="lesson in sortedProducts">
                     <ul>
                         <li>
                             <figure>
@@ -28,11 +45,15 @@
                             </figure>
                             <h2 v-text:src="lesson.title"></h2>
                             <p v-text:src="lesson.location"></p>
-                            <p>Price: {{lesson.price}}</p>
+                            <p>Price: £{{lesson.price}}</p>
                             <p>Availability: {{lesson.availability}}</p>
 
-                            <button v-on:click='addToCart(lesson)' v-if='canAddToCart(lesson)'> Add to cart</button>
-                            <button type=button disabled v-else>Add To Cart</button>
+                            <button v-on:click='addToCart(lesson)' v-if='canAddToCart(lesson)'> Add to cart
+                                <i class="fas fa-plus-circle"></i>
+                            </button>
+                            <button type=button disabled v-else>Add To Cart
+                                <i class="fas fa-plus-circle"></i>
+                            </button>
 
                             <span v-if='lesson.availability === cartCount(lesson.id)'>
                                 Out of Stock!</span>

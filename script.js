@@ -32,6 +32,43 @@ let webstore = new Vue({
         },
         itemsLeft() {
             return this.lesson.availability - this.cartCounter;
+        },
+        sortedProducts() {
+            function subjectABC(a, b) {
+                if (a.title.toLowerCase() < b.title.toLowerCase())
+                    return -1;
+                if (a.title.toLowerCase() > b.title.toLowerCase())
+                    return 1;
+                return 0;
+            }
+            function subjectZYX(a, b) {
+                if (a.title.toLowerCase() < b.title.toLowerCase())
+                    return 1;
+                if (a.title.toLowerCase() > b.title.toLowerCase())
+                    return -1;
+                return 0;
+            }
+            function priceAscending(a, b) {
+                if (a.price > b.price) return 1;
+                if (a.price < b.price) return -1;
+                return 0;
+            }
+            function priceDescending(a, b) {
+                if (a.price > b.price) return -1;
+                if (a.price < b.price) return 1;
+                return 0;
+            }
+            function lowAvailability(a, b) {
+                if (a.availability > b.availability) return 1;
+                if (a.availability < b.availability) return -1;
+                return 0;
+            }
+            function highAvailability(a, b) {
+                if (a.availability > b.availability) return -1;
+                if (a.availability < b.availability) return 1;
+                return 0;
+            }
+            return this.lessons.sort();
         }
     }
 });

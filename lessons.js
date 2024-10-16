@@ -4,89 +4,79 @@ let lessons = [
         image: 'Images/music.png',
         title: 'Music Theory Lesson',
         location: 'South West London',
-        price: 25,
-        availability: 10,
-        rating: 1
+        price: 24.99,
+        availability: 10
     },
     {
         id: 1002,
-        image: 'Images/',
+        image: 'Images/maths.png',
         title: 'Maths Lesson',
         location: 'West London',
-        price: 15,
-        availability: 10,
-        rating: 3
+        price: 15.99,
+        availability: 10
     },
     {
         id: 1003,
-        image: 'Images/',
+        image: 'Images/english.png',
         title: 'English Lesson',
         location: 'South West London',
-        price: 15,
-        availability: 10,
-        rating: 5
+        price: 14.99,
+        availability: 10
     },
     {
         id: 1004,
-        image: 'Images/',
+        image: 'Images/physics.png',
         title: 'Physics Lesson',
         location: 'North East London',
-        price: 30,
-        availability: 10,
-        rating: 4
+        price: 29.99,
+        availability: 10
     },
     {
         id: 1005,
-        image: 'Images/',
+        image: 'Images/chemistry.png',
         title: 'Chemistry Lesson',
         location: 'West London',
-        price:30,
-        availability: 10,
-        rating: 1
+        price: 30.99,
+        availability: 10
     },
     {
         id: 1006,
-        image: 'Images/',
+        image: 'Images/anatomy.png',
         title: 'Anatomy Lesson',
         location: 'South London',
-        price: 20,
-        availability: 10,
-        rating: 2
+        price: 18.99,
+        availability: 10
     },
     {
         id: 1007,
-        image: 'Images/',
+        image: 'Images/dancing.png',
         title: 'Dancing Lesson',
         location: 'North London',
-        price: 40,
-        availability: 10,
-        rating: 3
+        price: 36.99,
+        availability: 10
     },
     {
         id: 1008,
-        image: 'Images/',
+        image: 'Images/guitar.png',
         title: 'Guitar Lesson',
         location: 'North West London',
-        price: 40,
-        availability: 10,
-        rating: 5
+        price: 39.99,
+        availability: 10
     },
     {
         id: 1009,
-        image: 'Images/',
-        title: 'Tennnis Lesson',
+        image: 'Images/tennis.png',
+        title: 'Tennis Lesson',
         location: 'South West London',
-        price: 50,
-        availability: 10,
-        rating: 2
+        price: 49.99,
+        availability: 10
     },
     {
         id: 1010,
-        image: 'Images/',
+        image: 'Images/history.png',
         title: 'History Lesson',
         location: 'South East London',
-        price: 15,
-        availability: 10,
-        rating: 4
+        price: 16.99,
+        availability: 10
     },
 ]

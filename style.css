@@ -1,6 +1,6 @@
 img {
-    max-width: 200px;
-    max-height: 200px;
+    max-width: 150px;
+    max-height: 150px;
 }
 
 ul {
@@ -11,6 +11,15 @@ li {
     list-style-type: none;
 }
 
-button {
-    padding: 5px;
+.dropdown {
+    width: 72px;
+    padding-top: 10px;
+}
+
+.dropdown-content {
+    display: none;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
 }
