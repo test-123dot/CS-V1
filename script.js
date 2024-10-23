@@ -5,6 +5,7 @@ let webstore = new Vue({
         titlename: 'Booking Lessons',
         lessons: lessons,
         cart: [],
+        sortBy: 'ascending'
     },
     methods: {
         addToCart(lesson) {
@@ -24,6 +25,54 @@ let webstore = new Vue({
                 }
             }
             return count;
+        },
+        priceAscending(a, b) {
+            if (a.price > b.price) return 1;
+            if (a.price < b.price) return -1;
+            return 0;
+        },
+        priceDescending(a, b) {
+            if (a.price > b.price) return -1;
+            if (a.price < b.price) return 1;
+            return 0;
+        },
+        subjectABC(a, b) {
+            if (a.title.toLowerCase() < b.title.toLowerCase())
+                return -1;
+            if (a.title.toLowerCase() > b.title.toLowerCase())
+                return 1;
+            return 0;
+        },
+        subjectZYX(a, b) {
+            if (a.title.toLowerCase() < b.title.toLowerCase())
+                return 1;
+            if (a.title.toLowerCase() > b.title.toLowerCase())
+                return -1;
+            return 0;
+        },
+        locationABC(a, b) {
+            if (a.location.toLowerCase() < b.location.toLowerCase())
+                return -1;
+            if (a.location.toLowerCase() > b.location.toLowerCase())
+                return 1;
+            return 0;
+        },
+        locationZYX(a, b) {
+            if (a.location.toLowerCase() < b.location.toLowerCase())
+                return 1;
+            if (a.location.toLowerCase() > b.location.toLowerCase())
+                return -1;
+            return 0;
+        },
+        lowAvailability(a, b) {
+            if (a.availability > b.availability) return 1;
+            if (a.availability < b.availability) return -1;
+            return 0;
+        },
+        highAvailability(a, b) {
+            if (a.availability > b.availability) return -1;
+            if (a.availability < b.availability) return 1;
+            return 0;
         }
     },
     computed: {
@@ -33,42 +82,13 @@ let webstore = new Vue({
         itemsLeft() {
             return this.lesson.availability - this.cartCounter;
         },
-        sortedProducts() {
-            function subjectABC(a, b) {
-                if (a.title.toLowerCase() < b.title.toLowerCase())
-                    return -1;
-                if (a.title.toLowerCase() > b.title.toLowerCase())
-                    return 1;
-                return 0;
+        sortedArray() {
+            let sorted = this.lessons;
+            if (this.sortBy == 'ascending') {
+                return this.lessons.sort(this.priceAscending);
+            } elif(this.sortBy != 'ascending'); {
+                return this.lessons.sort(this.priceDescending);
             }
-            function subjectZYX(a, b) {
-                if (a.title.toLowerCase() < b.title.toLowerCase())
-                    return 1;
-                if (a.title.toLowerCase() > b.title.toLowerCase())
-                    return -1;
-                return 0;
-            }
-            function priceAscending(a, b) {
-                if (a.price > b.price) return 1;
-                if (a.price < b.price) return -1;
-                return 0;
-            }
-            function priceDescending(a, b) {
-                if (a.price > b.price) return -1;
-                if (a.price < b.price) return 1;
-                return 0;
-            }
-            function lowAvailability(a, b) {
-                if (a.availability > b.availability) return 1;
-                if (a.availability < b.availability) return -1;
-                return 0;
-            }
-            function highAvailability(a, b) {
-                if (a.availability > b.availability) return -1;
-                if (a.availability < b.availability) return 1;
-                return 0;
-            }
-            return this.lessons.sort();
         }
     }
 });

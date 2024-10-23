@@ -26,10 +26,15 @@
                     <i class="fa fa-caret-down"></i>
                 </button>
                 <div class="dropdown-content">
-                    <button>Price - Ascending</button>
-                    <button>Price - Descending</button>
+                    <button v-on:click="priceAscending">Price - Ascending</button>
+                    <button v-on:click="priceDescending">Price - Descending</button>
+
                     <button>Subject Title: A-Z</button>
                     <button>Subject Title: Z-A</button>
+
+                    <button>Location: A-Z</button>
+                    <button>Location: Z-A</button>
+
                     <button>Lowest Availability</button>
                     <button>Highest Availability</button>
                 </div>
@@ -37,7 +42,7 @@
         </header>
         <main>
             <div v-if="showLesson">
-                <div v-for="lesson in sortedProducts">
+                <div v-for="lesson in sortedArray">
                     <ul>
                         <li>
                             <figure>
