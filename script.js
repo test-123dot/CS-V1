@@ -6,7 +6,11 @@ let webstore = new Vue({
         lessons: lessons,
         cart: [],
         ascending: true,
-        sortBy: ''
+        sortBy: '',
+        order: {
+            firstName: '',
+            lastName: ''
+        }
     },
     methods: {
         addToCart(lesson) {
