@@ -10,16 +10,3 @@ ul {
 li {
     list-style-type: none;
 }
-
-.dropdown {
-    width: 72px;
-    padding-top: 10px;
-}
-
-.dropdown-content {
-    display: none;
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}

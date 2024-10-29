@@ -21,24 +21,18 @@
                 <i class="fas fa-shopping-cart"></i>
                 Checkout
             </button>
-            <div class="dropdown">
-                <button> Sort By
-                    <i class="fa fa-caret-down"></i>
+            <div id="sort-bar">
+                <label>Sort By:</label>
+                <select name="sortBy" id="select" v-model="sortBy">
+                    <option value="alphabeticallySubject">Subject</option>
+                    <option value="alphabeticallyLocation">Location</option>
+                    <option value="lowPrice">Price</option>
+                    <option value="lowAvailability">Availability</option>
+                </select>
+                <button v-on:click="ascending = !ascending">
+                    <p v-if="ascending" class="p-tag">Ascending</p>
+                    <p v-else>Descending</p>
                 </button>
-                <div class="dropdown-content">
-                    <button v-on:click="priceAscending">Price - Ascending</button>
-                    <button v-on:click="priceDescending">Price - Descending</button>
-
-                    <button>Subject Title: A-Z</button>
-                    <button>Subject Title: Z-A</button>
-
-                    <button>Location: A-Z</button>
-                    <button>Location: Z-A</button>
-
-                    <button>Lowest Availability</button>
-                    <button>Highest Availability</button>
-                </div>
-            </div>
         </header>
         <main>
             <div v-if="showLesson">

@@ -19,7 +19,7 @@ let lessons = [
         id: 1003,
         image: 'Images/english.png',
         title: 'English Lesson',
-        location: 'SouthLondon',
+        location: 'South London',
         price: 14.99,
         availability: 10
     },
@@ -27,7 +27,7 @@ let lessons = [
         id: 1004,
         image: 'Images/physics.png',
         title: 'Physics Lesson',
-        location: 'NorthLondon',
+        location: 'North London',
         price: 29.99,
         availability: 10
     },
