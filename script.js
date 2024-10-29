@@ -6,7 +6,7 @@ let webstore = new Vue({
         lessons: lessons,
         cart: [],
         ascending: true,
-        sortBy: 'alphabetically'
+        sortBy: ''
     },
     methods: {
         addToCart(lesson) {
@@ -39,24 +39,24 @@ let webstore = new Vue({
             let sortedLessons = this.lessons;
 
             sortedLessons = sortedLessons.sort((a, b) => {
-                if (this.sortBy == 'alphabeticallySubject') {
+                if (this.sortBy === 'alphabeticallySubject') {
                     if (a.title.toLowerCase() < b.title.toLowerCase())
                         return -1;
                     if (a.title.toLowerCase() > b.title.toLowerCase())
                         return 1;
                     return 0;
                 }
-                else if (this.sortBy == 'alphabeticallyLocation') {
+                else if (this.sortBy === 'alphabeticallyLocation') {
                     if (a.location.toLowerCase() < b.location.toLowerCase())
                         return -1;
                     if (a.location.toLowerCase() > b.location.toLowerCase())
                         return 1;
                     return 0;
                 }
-                else if (this.sortBy == 'lowPrice') {
+                else if (this.sortBy === 'lowPrice') {
                     return a.price - b.price
                 }
-                else if (this.sortBy == 'lowAvailability') {
+                else if (this.sortBy === 'lowAvailability') {
                     return a.availability - b.availability
                 }
             })

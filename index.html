@@ -29,9 +29,12 @@
                     <option value="lowPrice">Price</option>
                     <option value="lowAvailability">Availability</option>
                 </select>
-                <button v-on:click="ascending = !ascending">
-                    <p v-if="ascending" class="p-tag">Ascending</p>
-                    <p v-else>Descending</p>
+                <button disabled v-if="!sortBy">
+                    <a>Ascending</a>
+                </button>
+                <button v-on:click="ascending = !ascending" v-else>
+                    <a v-if="ascending">Ascending</a>
+                    <a v-else>Descending</a>
                 </button>
         </header>
         <main>
