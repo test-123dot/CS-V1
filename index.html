@@ -14,19 +14,16 @@
     <div id="lessonstore">
         <header>
             <h1 v-text="titlename"></h1>
-            <button type=button disabled v-if='cartItemCount === "" '> <i class="fas fa-shopping-cart"></i>
-                Checkout
-            </button>
-            <button v-on:click="showCheckout" v-else> {{cartItemCount}}
+            <button type="button" :disabled="cartItemCount === 0" @click="showCheckout">
                 <i class="fas fa-shopping-cart"></i>
-                Checkout
+                Checkout ({{ cartItemCount }})
+            </button>
         </header>
         <main>
             <div v-if="showLesson">
-                </button>
                 <div id="sort-bar">
-                    <label>Sort By:</label>
                     <select name="sortBy" id="select" v-model="sortBy">
+                        <option disabled value="">Sort By</option>
                         <option value="alphabeticallySubject">Subject</option>
                         <option value="alphabeticallyLocation">Location</option>
                         <option value="lowPrice">Price</option>
@@ -39,35 +36,76 @@
                         <a v-if="ascending">Ascending</a>
                         <a v-else>Descending</a>
                     </button>
-                    <div v-for="lesson in sortedArray">
-                        <ul>
-                            <li>
-                                <figure>
-                                    <img v-bind:src="lesson.image">
-                                </figure>
-                                <h2 v-text:src="lesson.title"></h2>
-                                <p v-text:src="lesson.location"></p>
-                                <p>Price: £{{lesson.price}}</p>
-                                <p>Availability: {{lesson.availability}}</p>
-
-                                <button v-on:click='addToCart(lesson)' v-if='canAddToCart(lesson)'> Add to cart
-                                    <i class="fas fa-plus-circle"></i>
-                                </button>
-                                <button type=button disabled v-else>Add To Cart
-                                    <i class="fas fa-plus-circle"></i>
-                                </button>
-
-                                <span v-if='lesson.availability === cartCount(lesson.id)'>
-                                    Out of Stock!</span>
-                                <span v-else-if="lesson.availability - cartCount(lesson.id) < 5">
-                                    {{lesson.availability - cartCount(lesson.id)}} left!
-                                </span>
-                                <span v-else>Buy now!</span>
-                            </li>
-                        </ul>
-                    </div>
                 </div>
-                <div v-else></div>
+                <div v-for="lesson in sortedArray" :key="lesson.id">
+                    <ul>
+                        <li>
+                            <figure>
+                                <img v-bind:src="lesson.image">
+                            </figure>
+                            <h2 v-text="lesson.title"></h2>
+                            <p v-text="lesson.location"></p>
+                            <p>Price: £{{ lesson.price }}</p>
+                            <p>Availability: {{ lesson.availability }}</p>
+
+                            <button @click='addToCart(lesson)' v-if='canAddToCart(lesson)'> Add to cart
+                                <i class="fas fa-plus-circle"></i>
+                            </button>
+                            <button type=button disabled v-else>Add To Cart
+                                <i class="fas fa-plus-circle"></i>
+                            </button>
+
+                            <span v-if="lesson.availability <= cartCount(lesson.id)">
+                                Out of Stock!
+                            </span>
+                            <span v-else-if="lesson.availability - cartCount(lesson.id) < 5">
+                                {{ lesson.availability - cartCount(lesson.id) }} left!
+                            </span>
+                            <span v-else>Buy now!</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div v-else>
+                <button type="button" @click="showLesson = true">Back to Lessons</button>
+                <h2>Checkout</h2>
+                <ul>
+                    <li v-for="item in cartItems" :key="item.id">
+                        <figure>
+                            <img v-bind:src="item.image">
+                        </figure>
+                        <h2 v-text="item.title"></h2>
+                        <p>Price: £{{ item.price }}</p>
+                        <p>Quantity: {{ item.quantity }}</p>
+                        <button @click="removeFromCart(item.id)">Remove</button>
+                    </li>
+                </ul>
+
+                <p v-if="cartItems.length > 0">
+                    <strong>Total Price: £{{ totalPrice }}</strong>
+                </p>
+
+                <p>
+                    <strong>Address:</strong> <input v-model="order.address" />
+                </p>
+                <p>
+                    <strong>City:</strong> <input v-model="order.city" />
+                </p>
+                <p>
+                    <strong>Country:</strong>
+                    <select v-model="order.country">
+                        <option disabled value="">--select an option--</option>
+                        <option>England</option>
+                        <option>Northern Ireland</option>
+                        <option>Wales</option>
+                        <option>Scotland</option>
+                    </select>
+                </p>
+                <p>
+                    <strong>Post Code:</strong> <input v-model="order.postcode" />
+                </p>
+
+            </div>
         </main>
     </div>
     <script type="text/javascript" src="lessons.js"></script>

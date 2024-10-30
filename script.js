@@ -9,32 +9,62 @@ let webstore = new Vue({
         sortBy: '',
         order: {
             firstName: '',
-            lastName: ''
+            lastName: '',
+            address: '',
+            city: '',
+            postcode: '',
+            country: ''
         }
     },
     methods: {
         addToCart(lesson) {
-            this.cart.push(lesson.id);
+            const cartItem = this.cart.find(item => item.id === lesson.id);
+            if (cartItem) {
+                if (this.canAddToCart(lesson)) {
+                    cartItem.quantity++;
+                }
+            } else {
+                this.cart.push({ id: lesson.id, quantity: 1 });
+            }
         },
-        showCheckout(lesson) {
-            this.showLesson = this.showLesson ? false : true;
+        showCheckout() {
+            this.showLesson = !this.showLesson;
         },
         canAddToCart(lesson) {
             return lesson.availability > this.cartCount(lesson.id);
         },
         cartCount(id) {
-            let count = 0;
-            for (let i = 0; i < this.cart.length; i++) {
-                if (this.cart[i] === id) {
-                    count++;
+            const cartItem = this.cart.find(item => item.id === id);
+
+            return cartItem ? cartItem.quantity : 0;
+        },
+        removeFromCart(itemId) {
+            const cartItemIndex = this.cart.findIndex(item => item.id === itemId);
+
+            if (cartItemIndex > -1) {
+                const cartItem = this.cart[cartItemIndex];
+                if (cartItem.quantity > 1) {
+                    cartItem.quantity--;
+                } else {
+                    this.cart.splice(cartItemIndex, 1);
                 }
             }
-            return count;
-        },
+        }
     },
     computed: {
-        cartItemCount: function () {
-            return this.cart.length || "";
+        cartItems() {
+            return this.cart.map(item => {
+                const lesson = this.lessons.find(lesson => lesson.id === item.id);
+                return {
+                    ...lesson, quantity: item.quantity
+                };
+            }).filter(item => item);
+        },
+        cartItemCount() {
+            return this.cart.reduce((total, item) => total + item.quantity, 0);
+        },
+        totalPrice() {
+            return this.cartItems.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2);
         },
         itemsLeft() {
             return this.lesson.availability - this.cartCounter;
