@@ -10,6 +10,7 @@ let webstore = new Vue({
         order: {
             firstName: '',
             lastName: '',
+            phoneNum: '',
             address: '',
             city: '',
             postcode: '',
@@ -21,13 +22,17 @@ let webstore = new Vue({
     },
     methods: {
         addToCart(lesson) {
-            const cartItem = this.cart.find(item => item.id === lesson.id);
-            if (cartItem) {
-                if (this.canAddToCart(lesson)) {
+            let cartItem = this.cart.find(item => item.id === lesson.id);
+
+            if (this.canAddToCart(lesson) && lesson.availability > 0) {
+                if (cartItem) {
                     cartItem.quantity++;
                 }
-            } else {
-                this.cart.push({ id: lesson.id, quantity: 1 });
+                else {
+                    this.cart.push({ id: lesson.id, quantity: 1 });
+                }
+                lesson.availability--;
+                console.log(lesson.availability);
             }
         },
         showCheckout() {
@@ -37,22 +42,30 @@ let webstore = new Vue({
             return lesson.availability > this.cartCount(lesson.id);
         },
         cartCount(id) {
-            const cartItem = this.cart.find(item => item.id === id);
+            let cartItem = this.cart.find(item => item.id === id);
 
             return cartItem ? cartItem.quantity : 0;
         },
         removeFromCart(itemId) {
-            const cartItemIndex = this.cart.findIndex(item => item.id === itemId);
+            let cartItemIndex = this.cart.findIndex(item => item.id === itemId);
 
             if (cartItemIndex > -1) {
-                const cartItem = this.cart[cartItemIndex];
+                let cartItem = this.cart[cartItemIndex];
+
                 if (cartItem.quantity > 1) {
                     cartItem.quantity--;
-                } else {
+                }
+                else {
                     this.cart.splice(cartItemIndex, 1);
                 }
+
+                let lesson = this.lessons.find(lesson => lesson.id === itemId);
+                if (lesson) {
+                    lesson.availability++;
+                }
             }
-        },
+        }
+        ,
         submitForm() {
             alert('Order submitted!')
         }
@@ -60,7 +73,7 @@ let webstore = new Vue({
     computed: {
         cartItems() {
             return this.cart.map(item => {
-                const lesson = this.lessons.find(lesson => lesson.id === item.id);
+                let lesson = this.lessons.find(lesson => lesson.id === item.id);
                 return {
                     ...lesson, quantity: item.quantity
                 };

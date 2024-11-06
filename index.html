@@ -95,6 +95,10 @@
                     <input v-model="order.lastName" />
                 </p>
                 <p>
+                    <strong>Phone Number:</strong>
+                    <input v-model="order.phoneNum" />
+                </p>
+                <p>
                     <strong>Address:</strong> <input v-model="order.address" />
                 </p>
                 <p>
@@ -127,6 +131,7 @@
                 <h2>Order Information</h2>
                 <p>First Name: {{order.firstName}}</p>
                 <p>Last Name: {{order.lastName}}</p>
+                <p>Phone Number: {{order.phoneNum}}</p>
                 <p>Address: {{order.address}}</p>
                 <p>City: {{order.city}}</p>
                 <p>Postcode: {{order.postcode}}</p>
@@ -134,7 +139,9 @@
                 <p>Gift? {{order.gift}}</p>
                 <p>Method: {{order.method}}</p>
             </div>
-            <button @click="submitForm">Place Order</button>
+            <button disabled v-if="order.firstName === '' || order.lastName === '' || order.phoneNum === '' ">Place
+                Order</button>
+            <button @click="submitForm" v-else>Place Order</button>
         </main>
     </div>
     <script type="text/javascript" src="lessons.js"></script>

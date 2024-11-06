@@ -5,7 +5,7 @@ let lessons = [
         title: 'Music Theory Lesson',
         location: 'South London',
         price: 24.99,
-        availability: 10
+        availability: 5
     },
     {
         id: 1002,
@@ -13,7 +13,7 @@ let lessons = [
         title: 'Maths Lesson',
         location: 'West London',
         price: 15.99,
-        availability: 10
+        availability: 5
     },
     {
         id: 1003,
@@ -21,7 +21,7 @@ let lessons = [
         title: 'English Lesson',
         location: 'South London',
         price: 14.99,
-        availability: 10
+        availability: 5
     },
     {
         id: 1004,
@@ -29,7 +29,7 @@ let lessons = [
         title: 'Physics Lesson',
         location: 'North London',
         price: 29.99,
-        availability: 10
+        availability: 5
     },
     {
         id: 1005,
@@ -37,7 +37,7 @@ let lessons = [
         title: 'Chemistry Lesson',
         location: 'West London',
         price: 30.99,
-        availability: 10
+        availability: 5
     },
     {
         id: 1006,
@@ -45,7 +45,7 @@ let lessons = [
         title: 'Anatomy Lesson',
         location: 'South London',
         price: 18.99,
-        availability: 10
+        availability: 5
     },
     {
         id: 1007,
@@ -53,7 +53,7 @@ let lessons = [
         title: 'Dancing Lesson',
         location: 'North London',
         price: 36.99,
-        availability: 10
+        availability: 5
     },
     {
         id: 1008,
@@ -61,7 +61,7 @@ let lessons = [
         title: 'Guitar Lesson',
         location: 'East London',
         price: 39.99,
-        availability: 10
+        availability: 5
     },
     {
         id: 1009,
@@ -69,7 +69,7 @@ let lessons = [
         title: 'Tennis Lesson',
         location: 'South London',
         price: 49.99,
-        availability: 10
+        availability: 5
     },
     {
         id: 1010,
@@ -77,6 +77,6 @@ let lessons = [
         title: 'History Lesson',
         location: 'East London',
         price: 16.99,
-        availability: 10
+        availability: 5
     },
 ]
