@@ -13,7 +13,10 @@ let webstore = new Vue({
             address: '',
             city: '',
             postcode: '',
-            country: ''
+            country: '',
+            method: 'Home',
+            sendGift: 'Send as a gift',
+            dontSendGift: 'Do not send as a gift'
         }
     },
     methods: {
@@ -49,6 +52,9 @@ let webstore = new Vue({
                     this.cart.splice(cartItemIndex, 1);
                 }
             }
+        },
+        submitForm() {
+            alert('Order submitted!')
         }
     },
     computed: {

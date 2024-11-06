@@ -15,8 +15,9 @@
         <header>
             <h1 v-text="titlename"></h1>
             <button type="button" :disabled="cartItemCount === 0" @click="showCheckout">
+                {{ cartItemCount }}
                 <i class="fas fa-shopping-cart"></i>
-                Checkout ({{ cartItemCount }})
+                Basket
             </button>
         </header>
         <main>
@@ -68,7 +69,7 @@
             </div>
             <div v-else>
                 <button type="button" @click="showLesson = true">Back to Lessons</button>
-                <h2>Checkout</h2>
+                <h2>Items in Basket</h2>
                 <ul>
                     <li v-for="item in cartItems" :key="item.id">
                         <figure>
@@ -84,7 +85,15 @@
                 <p v-if="cartItems.length > 0">
                     <strong>Total Price: £{{ totalPrice }}</strong>
                 </p>
-
+                <h2>Checkout</h2>
+                <p>
+                    <strong>First Name:</strong>
+                    <input v-model="order.firstName" />
+                </p>
+                <p>
+                    <strong>Last Name:</strong>
+                    <input v-model="order.lastName" />
+                </p>
                 <p>
                     <strong>Address:</strong> <input v-model="order.address" />
                 </p>
@@ -97,15 +106,35 @@
                         <option disabled value="">--select an option--</option>
                         <option>England</option>
                         <option>Northern Ireland</option>
-                        <option>Wales</option>
                         <option>Scotland</option>
+                        <option>Wales</option>
                     </select>
                 </p>
                 <p>
                     <strong>Post Code:</strong> <input v-model="order.postcode" />
                 </p>
+                <p><input type="checkbox" id="gift" value="true" v-model="order.gift" v-bind:true-value="order.sendGift"
+                        v-bind:false-value="order.dontSendGift">
+                    <label for="gift">Ship As Gift?</label>
 
+                </p>
+                <p>
+                    <input type="radio" id="home" value="Home" v-model="order.method">
+                    <label for="home">Home</label>
+                    <input type="radio" id="business" value="Business" v-model="order.method">
+                    <label for="business">Business</label>
+                </p>
+                <h2>Order Information</h2>
+                <p>First Name: {{order.firstName}}</p>
+                <p>Last Name: {{order.lastName}}</p>
+                <p>Address: {{order.address}}</p>
+                <p>City: {{order.city}}</p>
+                <p>Postcode: {{order.postcode}}</p>
+                <p>Country: {{order.country}}</p>
+                <p>Gift? {{order.gift}}</p>
+                <p>Method: {{order.method}}</p>
             </div>
+            <button @click="submitForm">Place Order</button>
         </main>
     </div>
     <script type="text/javascript" src="lessons.js"></script>
