@@ -55,14 +55,6 @@
                             <button type=button disabled v-else>Add To Cart
                                 <i class="fas fa-plus-circle"></i>
                             </button>
-
-                            <span v-if="lesson.availability <= cartCount(lesson.id)">
-                                Out of Stock!
-                            </span>
-                            <span v-else-if="lesson.availability - cartCount(lesson.id) < 5">
-                                {{ lesson.availability - cartCount(lesson.id) }} left!
-                            </span>
-                            <span v-else>Buy now!</span>
                         </li>
                     </ul>
                 </div>
