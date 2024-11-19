@@ -38,11 +38,11 @@
                         <a v-else>Descending</a>
                     </button>
                 </div>
-                <div v-for="lesson in sortedArray" :key="lesson.id">
+                <div v-for="lesson in sortedArray" :key="lesson._id">
                     <ul>
                         <li>
                             <figure>
-                                <img v-bind:src="lesson.image">
+                                <img v-bind:src="lesson.image" alt="Lesson Image">
                             </figure>
                             <h2 v-text="lesson.title"></h2>
                             <p v-text="lesson.location"></p>
@@ -63,9 +63,9 @@
                 <button type="button" @click="showLesson = true">Back to Lessons</button>
                 <h2>Items in Basket</h2>
                 <ul>
-                    <li v-for="item in cartItems" :key="item.id">
+                    <li v-for="item in cartItems" :key="item.id" >
                         <figure>
-                            <img v-bind:src="item.image">
+                            <img v-bind:src="item.image" alt="Cart Item Image">
                         </figure>
                         <h2 v-text="item.title"></h2>
                         <p>Price: £{{ item.price }}</p>
@@ -78,48 +78,54 @@
                     <strong>Total Price: £{{ totalPrice }}</strong>
                 </p>
                 <h2>Checkout</h2>
-                <p>
-                    <strong>First Name:</strong>
-                    <input v-model="order.firstName" />
-                </p>
-                <p>
-                    <strong>Last Name:</strong>
-                    <input v-model="order.lastName" />
-                </p>
-                <p>
-                    <strong>Phone Number:</strong>
-                    <input v-model="order.phoneNum" />
-                </p>
-                <p>
-                    <strong>Address:</strong> <input v-model="order.address" />
-                </p>
-                <p>
-                    <strong>City:</strong> <input v-model="order.city" />
-                </p>
-                <p>
-                    <strong>Country:</strong>
-                    <select v-model="order.country">
-                        <option disabled value="">--select an option--</option>
-                        <option>England</option>
-                        <option>Northern Ireland</option>
-                        <option>Scotland</option>
-                        <option>Wales</option>
-                    </select>
-                </p>
-                <p>
-                    <strong>Post Code:</strong> <input v-model="order.postcode" />
-                </p>
-                <p><input type="checkbox" id="gift" value="true" v-model="order.gift" v-bind:true-value="order.sendGift"
-                        v-bind:false-value="order.dontSendGift">
-                    <label for="gift">Ship As Gift?</label>
+                <form @submit.prevent="submitForm">
+                    <p>
+                        <strong>First Name:</strong>
+                        <input v-model="order.firstName" @input="validateName('firstName')" />
+                    </p>
+                    <p>
+                        <strong>Last Name:</strong>
+                        <input v-model="order.lastName" @input="validateName('lastName')" />
+                    </p>
+                    <p>
+                        <strong>Phone Number:</strong>
+                        <input v-model="order.phoneNum" @input="validatePhone" />
+                    </p>
+                    <p>
+                        <strong>Address:</strong> <input v-model="order.address" />
+                    </p>
+                    <p>
+                        <strong>City:</strong> <input v-model="order.city" />
+                    </p>
+                    <p>
+                        <strong>Country:</strong>
+                        <select v-model="order.country">
+                            <option disabled value="">--select an option--</option>
+                            <option>England</option>
+                            <option>Northern Ireland</option>
+                            <option>Scotland</option>
+                            <option>Wales</option>
+                        </select>
+                    </p>
+                    <p>
+                        <strong>Post Code:</strong> <input v-model="order.postcode" />
+                    </p>
+                    <p><input type="checkbox" id="gift" value="true" v-model="order.gift"
+                            v-bind:true-value="order.sendGift" v-bind:false-value="order.dontSendGift">
+                        <label for="gift">Ship As Gift?</label>
 
-                </p>
-                <p>
-                    <input type="radio" id="home" value="Home" v-model="order.method">
-                    <label for="home">Home</label>
-                    <input type="radio" id="business" value="Business" v-model="order.method">
-                    <label for="business">Business</label>
-                </p>
+                    </p>
+                    <p>
+                        <input type="radio" id="home" value="Home" v-model="order.method">
+                        <label for="home">Home</label>
+                        <input type="radio" id="business" value="Business" v-model="order.method">
+                        <label for="business">Business</label>
+                    </p>
+                    <button disabled
+                        v-if="order.firstName === '' || order.lastName === '' || order.phoneNum === '' ">Place
+                        Order</button>
+                    <button type="submit" v-else>Place Order</button>
+                </form>
                 <h2>Order Information</h2>
                 <p>First Name: {{order.firstName}}</p>
                 <p>Last Name: {{order.lastName}}</p>
@@ -131,13 +137,10 @@
                 <p>Gift? {{order.gift}}</p>
                 <p>Method: {{order.method}}</p>
             </div>
-            <button disabled v-if="order.firstName === '' || order.lastName === '' || order.phoneNum === '' ">Place
-                Order</button>
-            <button @click="submitForm" v-else>Place Order</button>
         </main>
     </div>
-    <script type="text/javascript" src="lessons.js"></script>
-    <script type="text/javascript" src="script.js"></script>
+    <script src="../CS-V1-BEnd/app.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>
