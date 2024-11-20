@@ -45,20 +45,26 @@ let webstore = new Vue({
             return count;
         },
         removeFromCart(itemId) {
+            console.log('Attempting to remove item with ID:', itemId);
             let cartItemIndex = this.cart.findIndex(item => item.id === itemId);
+            console.log('Cart item index:', cartItemIndex);
 
             if (cartItemIndex > -1) {
                 let cartItem = this.cart[cartItemIndex];
+                console.log('Current cart item:', cartItem);
 
                 if (cartItem.quantity > 1) {
                     cartItem.quantity--;
+                    console.log('Decreased quantity:', cartItem.quantity);
                 } else {
                     this.cart.splice(cartItemIndex, 1);
+                    console.log('Removed item from cart:', cartItem);
                 }
 
                 let lesson = this.lessons.find(lesson => lesson._id === itemId);
                 if (lesson) {
                     lesson.availability++;
+                    console.log('Updated lesson availability:', lesson.availability);
                 }
             }
         },
@@ -72,18 +78,46 @@ let webstore = new Vue({
                     firstName: this.order.firstName,
                     lastName: this.order.lastName,
                     phoneNum: this.order.phoneNum,
-                    lessonId: this.cart.map(item => item.id),
-                    availability: this.cart.map(item => {
-                        let lesson = this.lessons.find(lesson => lesson._id === item.id);
-                        return lesson ? lesson.availability : null;
-                    })
+                    lessonId: this.cart.map(item => ({
+                        id: item.id,
+                        quantity: item.quantity
+                    })),
                 }),
             });
 
             if (response.ok) {
                 alert('Order submitted!');
                 this.cart = []; // Clear cart after submission
-            } else {
+
+                this.order = {
+                    firstName: '',
+                    lastName: '',
+                    phoneNum: '',
+                    address: '',
+                    city: '',
+                    postcode: '',
+                    country: '',
+                    method: 'Home',
+                    sendGift: 'Send as a gift',
+                    dontSendGift: 'Do not send as a gift'
+                };
+
+                this.cart.forEach(async (item) => {
+                    const lessonId = item._id;
+                    const updatedAvailability = item.quantity;
+                    await fetch("http://localhost:3000/update/${lessonId}", {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            id: lessonId,
+                            availability: updatedAvailability,
+                        }),
+                    });
+                });
+            }
+            else {
                 alert('Error submitting order');
             }
         },
@@ -139,25 +173,6 @@ let webstore = new Vue({
     },
     async mounted() {
         const response = await fetch("http://localhost:3000/lessons");
-        this.lessons = await response.json();
+        webstore.lessons = await response.json();
     },
-    async updateLesson(lessonId, updatedData) {
-        const response = await fetch(`http://localhost:3000/lessons/${lessonId}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(updatedData),
-        });
-
-        if (response.ok) {
-            const updatedLesson = await response.json();
-            const index = this.lessons.findIndex(lesson => lesson._id === lessonId);
-            if (index !== -1) {
-                this.$set(this.lessons, index, updatedLesson);
-            }
-        } else {
-            alert('Error updating lesson');
-        }
-    }
 });

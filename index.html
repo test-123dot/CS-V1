@@ -63,14 +63,14 @@
                 <button type="button" @click="showLesson = true">Back to Lessons</button>
                 <h2>Items in Basket</h2>
                 <ul>
-                    <li v-for="item in cartItems" :key="item.id" >
+                    <li v-for="item in cartItems">
                         <figure>
                             <img v-bind:src="item.image" alt="Cart Item Image">
                         </figure>
                         <h2 v-text="item.title"></h2>
                         <p>Price: £{{ item.price }}</p>
                         <p>Quantity: {{ item.quantity }}</p>
-                        <button @click="removeFromCart(item.id)">Remove</button>
+                        <button @click="removeFromCart(item._id)">Remove</button>
                     </li>
                 </ul>
 
@@ -139,7 +139,6 @@
             </div>
         </main>
     </div>
-    <script src="../CS-V1-BEnd/app.js"></script>
     <script src="script.js"></script>
 </body>
 
