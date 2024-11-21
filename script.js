@@ -90,16 +90,24 @@ let webstore = new Vue({
 
                 for (const item of this.cart) {
                     const lessonId = item.id;
-                    const updatedAvailability = item.quantity;
+                    const purchasedQuantity = item.quantity; // Get the quantity purchased
+
+                    // Get the current availability of the lesson first
+                    const lessonResponse = await fetch(`http://localhost:3000/lessons`);
+                    const lessons = await lessonResponse.json();
+                    const lesson = lessons.find(lesson => lesson._id === lessonId);
+                    const newAvailability = lesson.availability - purchasedQuantity; // Calculate new availability
+
                     const updateResponse = await fetch(`http://localhost:3000/update/${lessonId}`, {
                         method: "PUT",
                         headers: {
                             "Content-Type": "application/json",
                         },
                         body: JSON.stringify({
-                            availability: -updatedAvailability,
+                            availability: newAvailability, // Set the new availability directly
                         }),
                     });
+
                     const updateResult = await updateResponse.json();
                     console.log('Update response:', updateResult);
                 }
