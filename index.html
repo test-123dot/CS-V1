@@ -42,7 +42,7 @@
                     <ul>
                         <li>
                             <figure>
-                                <img v-bind:src="lesson.image" alt="Lesson Image">
+                                <img v-bind:src="`Images/${lesson.image}`" alt="Lesson Image">
                             </figure>
                             <h2 v-text="lesson.title"></h2>
                             <p v-text="lesson.location"></p>
@@ -65,7 +65,7 @@
                 <ul>
                     <li v-for="item in cartItems">
                         <figure>
-                            <img v-bind:src="item.image" alt="Cart Item Image">
+                            <img v-bind:src="`Images/${item.image}`" alt="Cart Item Image">
                         </figure>
                         <h2 v-text="item.title"></h2>
                         <p>Price: £{{ item.price }}</p>
@@ -121,8 +121,7 @@
                         <input type="radio" id="business" value="Business" v-model="order.method">
                         <label for="business">Business</label>
                     </p>
-                    <button disabled
-                        v-if="order.firstName === '' || order.lastName === '' || order.phoneNum === '' ">Place
+                    <button disabled v-if="order.firstName === '' || order.phoneNum === '' ">Place
                         Order</button>
                     <button type="submit" v-else>Place Order</button>
                 </form>

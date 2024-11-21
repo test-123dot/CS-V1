@@ -102,20 +102,19 @@ let webstore = new Vue({
                     dontSendGift: 'Do not send as a gift'
                 };
 
-                this.cart.forEach(async (item) => {
-                    const lessonId = item._id;
+                for (const item of this.cart) {
+                    const lessonId = item.id;
                     const updatedAvailability = item.quantity;
-                    await fetch("http://localhost:3000/update/${lessonId}", {
+                    await fetch(`http://localhost:3000/update/${lessonId}`, {
                         method: "PUT",
                         headers: {
                             "Content-Type": "application/json",
                         },
                         body: JSON.stringify({
-                            id: lessonId,
                             availability: updatedAvailability,
                         }),
                     });
-                });
+                }
             }
             else {
                 alert('Error submitting order');
