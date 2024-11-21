@@ -87,6 +87,22 @@ let webstore = new Vue({
 
             if (response.ok) {
                 alert('Order submitted!');
+
+                for (const item of this.cart) {
+                    const lessonId = item.id;
+                    const updatedAvailability = item.quantity;
+                    const updateResponse = await fetch(`http://localhost:3000/update/${lessonId}`, {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            availability: -updatedAvailability,
+                        }),
+                    });
+                    const updateResult = await updateResponse.json();
+                    console.log('Update response:', updateResult);
+                }
                 this.cart = []; // Clear cart after submission
 
                 this.order = {
@@ -101,20 +117,6 @@ let webstore = new Vue({
                     sendGift: 'Send as a gift',
                     dontSendGift: 'Do not send as a gift'
                 };
-
-                for (const item of this.cart) {
-                    const lessonId = item.id;
-                    const updatedAvailability = item.quantity;
-                    await fetch(`http://localhost:3000/update/${lessonId}`, {
-                        method: "PUT",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify({
-                            availability: updatedAvailability,
-                        }),
-                    });
-                }
             }
             else {
                 alert('Error submitting order');
