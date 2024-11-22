@@ -19,13 +19,13 @@
                 <i class="fas fa-shopping-cart"></i>
                 Basket
             </button>
-            <p>
-                <strong>Search Lessons:</strong>
-                <input v-model="searchQuery" @input="fetchSearchResults" placeholder="Type to search..." />
-            </p>
         </header>
         <main>
             <div v-if="showLesson">
+                <p>
+                    <strong>Search Lessons:</strong>
+                    <input v-model="searchQuery" @input="fetchSearchResults" placeholder="Type to search..." />
+                </p>
                 <div id="sort-bar">
                     <select name="sortBy" id="select" v-model="sortBy">
                         <option disabled value="">Sort By</option>
