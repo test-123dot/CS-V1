@@ -7,6 +7,7 @@ let webstore = new Vue({
         cart: [],
         ascending: true,
         sortBy: '',
+        searchQuery: '',
         order: {
             firstName: '',
             lastName: '',
@@ -90,9 +91,9 @@ let webstore = new Vue({
 
                 for (const item of this.cart) {
                     const lessonId = item.id;
-                    const purchasedQuantity = item.quantity; 
+                    const purchasedQuantity = item.quantity;
 
-                  
+
                     const lessonResponse = await fetch(`http://localhost:3000/lessons`);
                     const lessons = await lessonResponse.json();
                     const lesson = lessons.find(lesson => lesson._id === lessonId);
@@ -104,7 +105,7 @@ let webstore = new Vue({
                             "Content-Type": "application/json",
                         },
                         body: JSON.stringify({
-                            availability: newAvailability, 
+                            availability: newAvailability,
                         }),
                     });
 
@@ -135,6 +136,10 @@ let webstore = new Vue({
         },
         validatePhone() {
             this.order.phoneNum = this.order.phoneNum.replace(/[^0-9]/g, '');
+        },
+        async fetchSearchResults() {
+            const response = await fetch(`http://localhost:3000/search?q=${this.searchQuery}`);
+            this.lessons = await response.json();
         },
     },
     computed: {
